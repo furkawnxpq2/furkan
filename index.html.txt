@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasan Furkan | 3D Tasarım & Oyun</title>
+    <style>
+        /* Sayfa Düzeni */
+        body { 
+            margin: 0; 
+            background: #0a0a0a; 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Başlık ve Skor */
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+            z-index: 10;
+        }
+
+        h1 { margin: 0; color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+        p { margin: 5px 0; font-size: 1.2rem; }
+
+        /* Oyun Alanı */
+        canvas { 
+            background: #000; 
+            border: 3px solid #333; 
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            cursor: none; /* Mouse yerine oyuncu gemisi görünecek */
+        }
+
+        /* Shopier Butonu */
+        .shop-btn { 
+            margin-top: 25px; 
+            padding: 15px 40px; 
+            background: linear-gradient(45deg, #e63946, #d62828); 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            transition: 0.3s; 
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            z-index: 10;
+        }
+        .shop-btn:hover { 
+            transform: scale(1.1); 
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+            background: linear-gradient(45deg, #f1faee, #e63946);
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>HASAN FURKAN</h1>
+        <p>Meteorlardan Kaç! Skor: <span id="score">0</span></p>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <a href="https://www.shopier.com/hasanfurkan" class="shop-btn" target="_blank">3D Modellerimi Keşfet</a>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+
+        // Ekran boyutuna göre ayarla
+        canvas.width = window.innerWidth * 0.9 > 800 ? 800 : window.innerWidth * 0.9;
+        canvas.height = 400;
+
+        let score = 0;
+        let gameActive = true;
+        let player = { x: canvas.width / 2, y: canvas.height - 40, w: 30, h: 30, color: '#00d4ff' };
+        let meteors = [];
+
+        function createMeteor() {
+            if(!gameActive) return;
+            const size = 15 + Math.random() * 25;
+            meteors.push({ 
+                x: Math.random() * canvas.width, 
+                y: -size, 
+                size: size,s
