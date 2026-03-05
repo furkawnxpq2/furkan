@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasan Furkan | 3D Tasarım & Oyun</title>
+    <style>
+        body { margin: 0; background: #111; color: white; font-family: sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        canvas { display: block; background: #000; border: 2px solid #444; margin-top: 20px; cursor: crosshair; }
+        .ui { position: absolute; top: 20px; text-align: center; pointer-events: none; }
+        .shop-btn { 
+            margin-top: 20px; padding: 15px 30px; background: #e63946; color: white; 
+            text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 20px;
+            transition: 0.3s; z-index: 100;
+        }
+        .shop-btn:hover { background: #f1faee; color: #e63946; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <div class="ui">
+        <h1>Hasan Furkan - 3D Tasarım</h1>
+        <p>Meteorlardan Kaç! Skor: <span id="score">0</span></p>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <a href="https://www.shopier.com/hasanfurkan" class="shop-btn" target="_blank">3D Modellerimi Satın Al</a>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+
+        canvas.width = window.innerWidth * 0.8;
+        canvas.height = 400;
+
+        let score = 0;
+        let player = { x: canvas.width / 2, y: canvas.height - 30, w: 20, h: 20, color: '#00f' };
+        let meteors = [];
+
+        function createMeteor() {
+            meteors.push({ x: Math.random() * canvas.width, y: 0, size: 15 + Math.random() * 20, speed: 2 + Math.random() * 3 });
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Oyuncu Çizimi
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x - player.w/2, player.y, player.w, player.h);
+
+            // Meteor Hareketleri
+            meteors.forEach((m, index) => {
+                m.y += m.speed;
+                ctx.fillStyle = '#ff4d4d';
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Çarpışma Kontrolü
+                if (m.y + m.size > player.y && m.x > player.x - 20 && m.x < player.x + 20) {
+                    score = 0;
+                    meteors = [];
+                }
+
+                if (m.y > canvas.height) {
+                    meteors.splice(index, 1);
+                    score++;
+                    scoreElement.innerText = score;
+                }
+            });
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            player.x = e.clientX - rect.left;
+        });
+
+        setInterval(createMeteor, 1000);
+        update();
+    </script>
+</body>
+</html>
