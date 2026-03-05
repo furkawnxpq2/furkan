@@ -1,94 +1,204 @@
+Siz şunu dediniz:
 <!DOCTYPE html>
+
 <html lang="tr">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasan Furkan | 3D Tasarım & Oyun</title>
+
+    <title>Hasan Furkan | 3D Mağazam</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+   
+
     <style>
-        /* Sayfa Düzeni */
-        body { 
-            margin: 0; 
-            background: #0a0a0a; 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            min-height: 100vh;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+       
+
+        body {
+
+            background-color: #050505;
+
+            color: #ffffff;
+
+            font-family: 'Poppins', sans-serif;
+
+            height: 100vh;
+
+            display: flex;
+
+            flex-direction: column; /* İçeriği dikey sıralamak için */
+
+            justify-content: space-between;
+
+            align-items: center;
+
             overflow: hidden;
+
+            position: relative;
+
         }
 
-        /* Başlık ve Skor */
-        .header {
+
+
+        /* Arka Plan Efekti */
+
+        body::after {
+
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
+            background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+
+            z-index: -1;
+
+        }
+
+
+
+        /* SOL ÜST: Mağaza Yazıları */
+
+        .top-left {
+
+            position: absolute; top: 50px; left: 5%;
+
+            border-left: 3px solid #00d2ff; padding-left: 15px;
+
+        }
+
+        .top-left h2 { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: #00d2ff; }
+
+        .top-left p { font-size: 0.8rem; color: #777; text-transform: uppercase; margin-top: 5px; }
+
+
+
+        /* ORTA: Ana İçerik */
+
+        .main-content { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+        .main-content h1 { font-family: 'Orbitron', sans-serif; font-size: 4rem; margin-bottom: 40px; letter-spacing: 8px; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
+
+       
+
+        .wp-btn {
+
+            display: inline-flex; align-items: center; gap: 15px;
+
+            padding: 20px 50px; background: transparent; border: 2px solid #25D366;
+
+            color: #25D366; text-decoration: none; font-weight: 700; border-radius: 50px;
+
+            font-size: 1.2rem; transition: 0.4s;
+
+        }
+
+        .wp-btn:hover { background: #25D366; color: #000; box-shadow: 0 0 40px rgba(37, 211, 102, 0.4); transform: scale(1.1); }
+
+
+
+        /* SAĞ ALT: Instagram + Kullanıcı Adı */
+
+        .insta-container {
+
+            position: absolute; bottom: 80px; right: 5%;
+
+            display: flex; align-items: center; gap: 15px;
+
+            text-decoration: none; color: white;
+
+            transition: 0.4s;
+
+        }
+
+        .insta-container:hover { color: #E1306C; transform: translateY(-3px); }
+
+        .insta-container span { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
+
+        .insta-container i { font-size: 3rem; }
+
+
+
+        /* RESMİ ALT BİLGİ (FOOTER) */
+
+        footer {
+
+            width: 100%;
+
+            padding: 20px;
+
+            background: rgba(255, 255, 255, 0.02);
+
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+
             text-align: center;
-            margin-bottom: 10px;
+
+            font-size: 0.7rem;
+
+            color: #444;
+
+            letter-spacing: 1px;
+
             z-index: 10;
+
         }
 
-        h1 { margin: 0; color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.5); }
-        p { margin: 5px 0; font-size: 1.2rem; }
-
-        /* Oyun Alanı */
-        canvas { 
-            background: #000; 
-            border: 3px solid #333; 
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            cursor: none; /* Mouse yerine oyuncu gemisi görünecek */
-        }
-
-        /* Shopier Butonu */
-        .shop-btn { 
-            margin-top: 25px; 
-            padding: 15px 40px; 
-            background: linear-gradient(45deg, #e63946, #d62828); 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            font-size: 1.2rem;
-            transition: 0.3s; 
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
-            z-index: 10;
-        }
-        .shop-btn:hover { 
-            transform: scale(1.1); 
-            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
-            background: linear-gradient(45deg, #f1faee, #e63946);
-            color: #111;
-        }
     </style>
+
 </head>
+
 <body>
 
-    <div class="header">
-        <h1>HASAN FURKAN</h1>
-        <p>Meteorlardan Kaç! Skor: <span id="score">0</span></p>
+
+
+    <div class="top-left">
+
+        <h2>3D MAĞAZAM</h2>
+
+        <p>Hasan Furkan Digital Design</p>
+
     </div>
 
-    <canvas id="gameCanvas"></canvas>
 
-    <a href="https://www.shopier.com/hasanfurkan" class="shop-btn" target="_blank">3D Modellerimi Keşfet</a>
 
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreElement = document.getElementById('score');
+    <div class="main-content">
 
-        // Ekran boyutuna göre ayarla
-        canvas.width = window.innerWidth * 0.9 > 800 ? 800 : window.innerWidth * 0.9;
-        canvas.height = 400;
+        <h1>HASAN FURKAN</h1>
 
-        let score = 0;
-        let gameActive = true;
-        let player = { x: canvas.width / 2, y: canvas.height - 40, w: 30, h: 30, color: '#00d4ff' };
-        let meteors = [];
+        <a href="https://wa.me/905376404207?text=Merhaba%20Hasan,%203D%20tasarımların%20hakkında%20bilgi%20almak%20istiyorum." class="wp-btn" target="_blank">
 
-        function createMeteor() {
-            if(!gameActive) return;
-            const size = 15 + Math.random() * 25;
-            meteors.push({ 
-                x: Math.random() * canvas.width, 
-                y: -size, 
-                size: size,s
+            <i class="fab fa-whatsapp"></i> İLETİŞİME GEÇ
+
+        </a>
+
+    </div>
+
+
+
+    <a href="https://www.instagram.com/furkan202207/" class="insta-container" target="_blank">
+
+        <span>@furkan202207</span>
+
+        <i class="fab fa-instagram"></i>
+
+    </a>
+
+
+
+    <footer>
+
+        © 2026 HASAN FURKAN | TÜM HAKLARI SAKLIDIR | 3D ARTIST & DIGITAL DESIGNER
+
+    </footer>
+
+
+
+</body>
+
+</html>
